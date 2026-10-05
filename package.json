@@ -1,0 +1,12 @@
+{
+  "name": "tienda-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+       "test": "echo Pruebas OK"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

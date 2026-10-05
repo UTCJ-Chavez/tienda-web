@@ -1,0 +1,40 @@
+name: CI-CD TiendaWeb
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+
+jobs:
+  test:
+    name: Pruebas y build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  deploy-staging:
+    name: Desplegar a Staging
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Desplegar (simulado)
+        run: echo "Desplegando a STAGING"
+
+  deploy-production:
+    name: Desplegar a Produccion
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Desplegar (simulado)
+        run: echo "Desplegando a PRODUCCION"
